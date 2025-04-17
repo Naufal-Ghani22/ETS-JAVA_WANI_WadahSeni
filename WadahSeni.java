@@ -152,7 +152,12 @@ public class WadahSeni {
 
                 int menuCreator;
                 do {
-                    System.out.println("\n--- Menu Creator ---");
+                    System.out.println("\n----------- Menu Creator ------------");
+                    System.out.println("-------------------------------------");
+                    System.out.println("HALO " +namaArtis);
+                    System.out.println("Selamat datang di menu Creator - WANI");
+                    System.out.println("Pilih opsi fiturmu");
+                    System.out.println("-------------------------------------");
                     System.out.println("1. Tambah karya seni");
                     System.out.println("2. Lihat semua karya Anda");
                     System.out.println("9. Ganti Peran");
@@ -225,7 +230,12 @@ public class WadahSeni {
 
                 int pilihan;
                 do {
-                    System.out.println("\n--- Menu Client ---");
+                    System.out.println("\n------------ Menu Client ------------");
+                    System.out.println("-------------------------------------");
+                    System.out.println("HALO " +namaPembeli);
+                    System.out.println("Selamat datang di menu Client - WANI");
+                    System.out.println("Pilih opsi fiturmu");
+                    System.out.println("--------------------------------------");
                     System.out.println("1. Lihat semua karya");
                     System.out.println("2. Beli karya seni");
                     System.out.println("3. Lihat koleksi Anda");
@@ -280,7 +290,7 @@ public class WadahSeni {
                 } while (pilihan != 9);
 
             } else if (role == 0) {
-                System.out.println("👋 Terima kasih telah menggunakan Galeri Seni Digital.");
+                System.out.println("👋 Terima kasih telah menggunakan aplikasi WANI - (Wadah Seni) Galeri Seni Digital.");
                 running = false;
             } else {
                 System.out.println("❌ Peran tidak valid.");
