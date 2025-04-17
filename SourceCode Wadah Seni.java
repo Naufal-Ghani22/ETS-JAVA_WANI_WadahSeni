@@ -1,6 +1,5 @@
 import java.util.*;
 
-// KARYA SENI
 class KaryaSeni {
     String judul;
     Artis artis;
@@ -29,7 +28,6 @@ class KaryaSeni {
     }
 }
 
-// lUKISAN EXTEND
 class Lukisan extends KaryaSeni {
     private String teknik;
 
@@ -44,7 +42,6 @@ class Lukisan extends KaryaSeni {
     }
 }
 
-// PATUNG EXTEND
 class Patung extends KaryaSeni {
     private String bahan;
 
@@ -59,7 +56,6 @@ class Patung extends KaryaSeni {
     }
 }
 
-// ARTIS
 class Artis {
     private String nama;
 
@@ -76,7 +72,6 @@ class Artis {
     }
 }
 
-// CLIENT/PEMBELI
 class Pembeli {
     private String nama;
     private ArrayList<KaryaSeni> koleksi;
@@ -110,14 +105,12 @@ class Pembeli {
     }
 }
 
-// TRANSKASI
 class TransaksiSeni {
-    // PERSEN DISKON
     public static double applyDiskon(double total, double persen) {
         if (persen < 0 || persen > 100) return total;
         return total - (total * persen / 100);
     }
-    // NOTA
+
     public static void generateReceipt(Pembeli pembeli, double diskon) {
         System.out.println("\n--- Receipt Transaksi ---");
         pembeli.tampilkanKoleksi();
@@ -129,7 +122,6 @@ class TransaksiSeni {
     }
 }
 
-// MAIN
 public class WadahSeni {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -144,17 +136,15 @@ public class WadahSeni {
 
         boolean running = true;
         while (running) {
-            // menu utama
-            System.out.println("\nSelamat datang di Aplikasi WANI (Wadah Seni) Galeri Seni Digital!");
-            System.out.println("Silahkan pilih peran:");
+            System.out.println("\nSelamat datang di Galeri Seni Digital!");
+            System.out.println("Pilih peran:");
             System.out.println("1. Creator (Artis)");
             System.out.println("2. Client (Pembeli)");
             System.out.println("0. Keluar");
-            System.out.print("Masukkan pilihan : ");
+            System.out.print("Masukkan pilihan: ");
             int role = sc.nextInt();
             sc.nextLine(); // konsumsi newline
 
-            // creator menu
             if (role == 1) {
                 System.out.print("Masukkan nama Anda (Creator): ");
                 String namaArtis = sc.nextLine();
@@ -233,7 +223,6 @@ public class WadahSeni {
                     }
                 } while (menuCreator != 9);
 
-            //client menu 
             } else if (role == 2) {
                 System.out.print("Masukkan nama Anda (Client): ");
                 String namaPembeli = sc.nextLine();
@@ -296,7 +285,7 @@ public class WadahSeni {
                             System.out.println("Kembali ke pemilihan peran...");
                             break;
                         default:
-                            System.out.println("❌ Menu tidak valid.");
+                            System.out.println("Menu tidak valid.");
                     }
                 } while (pilihan != 9);
 
