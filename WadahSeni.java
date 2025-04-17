@@ -1,255 +1,291 @@
+import java.util.*;
 
-// import java.util.*;
+class KaryaSeni {
+    protected String judul;
+    protected Artis artis;
+    protected double harga;
 
-// class KaryaSeni {
-//     protected String judul;
-//     protected Artis artis;
-//     protected double harga;
+    public KaryaSeni(String judul, Artis artis, double harga) {
+        this.judul = judul;
+        this.artis = artis;
+        this.harga = harga;
+    }
 
-//     public KaryaSeni(String judul, Artis artis, double harga) {
-//         this.judul = judul;
-//         this.artis = artis;
-//         this.harga = harga;
-//     }
+    public double getHarga() {
+        return harga;
+    }
 
-//     public double getHarga() {
-//         return harga;
-//     }
+    public String getJudul() {
+        return judul;
+    }
 
-//     public String getJudul() {
-//         return judul;
-//     }
+    public Artis getArtis() {
+        return artis;
+    }
 
-//     public Artis getArtis() {
-//         return artis;
-//     }
+    public String toString() {
+        return judul + " oleh " + artis.getNama() + " - Rp" + harga;
+    }
+}
 
-//     public String toString() {
-//         return judul + " oleh " + artis.getNama() + " - Rp" + harga;
-//     }
-// }
+class Lukisan extends KaryaSeni {
+    private String teknik;
 
-// class Lukisan extends KaryaSeni {
-//     private String teknik;
+    public Lukisan(String judul, Artis artis, double harga, String teknik) {
+        super(judul, artis, harga);
+        this.teknik = teknik;
+    }
 
-//     public Lukisan(String judul, Artis artis, double harga, String teknik) {
-//         super(judul, artis, harga);
-//         this.teknik = teknik;
-//     }
+    @Override
+    public String toString() {
+        return "[Lukisan] " + super.toString() + " | Teknik: " + teknik;
+    }
+}
 
-//     @Override
-//     public String toString() {
-//         return "[Lukisan] " + super.toString() + " | Teknik: " + teknik;
-//     }
-// }
+class Patung extends KaryaSeni {
+    private String bahan;
 
-// class Patung extends KaryaSeni {
-//     private String bahan;
+    public Patung(String judul, Artis artis, double harga, String bahan) {
+        super(judul, artis, harga);
+        this.bahan = bahan;
+    }
 
-//     public Patung(String judul, Artis artis, double harga, String bahan) {
-//         super(judul, artis, harga);
-//         this.bahan = bahan;
-//     }
+    @Override
+    public String toString() {
+        return "[Patung] " + super.toString() + " | Bahan: " + bahan;
+    }
+}
 
-//     @Override
-//     public String toString() {
-//         return "[Patung] " + super.toString() + " | Bahan: " + bahan;
-//     }
-// }
+class Artis {
+    private String nama;
 
-// class Artis {
-//     private String nama;
+    public Artis(String nama) {
+        this.nama = nama;
+    }
 
-//     public Artis(String nama) {
-//         this.nama = nama;
-//     }
+    public String getNama() {
+        return nama;
+    }
 
-//     public String getNama() {
-//         return nama;
-//     }
+    public String toString() {
+        return "Artis: " + nama;
+    }
+}
 
-//     public String toString() {
-//         return "Artis: " + nama;
-//     }
-// }
+class Pembeli {
+    private String nama;
+    private ArrayList<KaryaSeni> koleksi;
 
+    public Pembeli(String nama) {
+        this.nama = nama;
+        this.koleksi = new ArrayList<>();
+    }
 
+    public void beliKarya(KaryaSeni karya) {
+        koleksi.add(karya);
+    }
 
-// class Pembeli {
-//     private String nama;
-//     private ArrayList<KaryaSeni> koleksi;
+    public double hitungTotal() {
+        double total = 0;
+        for (KaryaSeni k : koleksi) {
+            total += k.getHarga();
+        }
+        return total;
+    }
 
-//     public Pembeli(String nama) {
-//         this.nama = nama;
-//         this.koleksi = new ArrayList<>();
-//     }
+    public void tampilkanKoleksi() {
+        System.out.println("Koleksi karya seni " + nama + ":");
+        for (KaryaSeni k : koleksi) {
+            System.out.println("- " + k.toString());
+        }
+    }
 
-//     public void beliKarya(KaryaSeni karya) {
-//         koleksi.add(karya);
-//     }
+    public String getNama() {
+        return nama;
+    }
+}
 
-//     public double hitungTotal() {
-//         double total = 0;
-//         for (KaryaSeni k : koleksi) {
-//             total += k.getHarga();
-//         }
-//         return total;
-//     }
+class TransaksiSeni {
+    public static double applyDiskon(double total, double persen) {
+        if (persen < 0 || persen > 100) return total;
+        return total - (total * persen / 100);
+    }
 
-//     public void tampilkanKoleksi() {
-//         System.out.println("Koleksi karya seni " + nama + ":");
-//         for (KaryaSeni k : koleksi) {
-//             System.out.println("- " + k.toString());
-//         }
-//     }
+    public static void generateReceipt(Pembeli pembeli, double diskon) {
+        System.out.println("\n--- Receipt Transaksi ---");
+        pembeli.tampilkanKoleksi();
+        double total = pembeli.hitungTotal();
+        System.out.println("Total sebelum diskon: Rp" + total);
+        double afterDiskon = applyDiskon(total, diskon);
+        System.out.println("Total setelah diskon " + diskon + "%: Rp" + afterDiskon);
+        System.out.println("-------------------------\n");
+    }
+}
 
-//     public String getNama() {
-//         return nama;
-//     }
-// }
+public class WadahSeni {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<KaryaSeni> daftarKarya = new ArrayList<>();
 
-// class TransaksiSeni {
-//     public static double applyDiskon(double total, double persen) {
-//         if (persen < 0 || persen > 100) return total;
-//         return total - (total * persen / 100);
-//     }
+        // Data awal
+        Artis a1 = new Artis("Dewi Lestari");
+        Artis a2 = new Artis("Budi Santosa");
+        daftarKarya.add(new Lukisan("Senja Merah", a1, 1500000, "Akrilik"));
+        daftarKarya.add(new Patung("Rasa Sunyi", a2, 2000000, "Kayu Jati"));
+        daftarKarya.add(new Lukisan("Pagi di Desa", a2, 1000000, "Cat Minyak"));
 
-//     public static void generateReceipt(Pembeli pembeli, double diskon) {
-//         System.out.println("\n--- Receipt Transaksi ---");
-//         pembeli.tampilkanKoleksi();
-//         double total = pembeli.hitungTotal();
-//         System.out.println("Total sebelum diskon: Rp" + total);
-//         double afterDiskon = applyDiskon(total, diskon);
-//         System.out.println("Total setelah diskon " + diskon + "%: Rp" + afterDiskon);
-//         System.out.println("-------------------------\n");
-//     }
-// }
+        boolean running = true;
+        while (running) {
+            System.out.println("\nSelamat datang di Galeri Seni Digital!");
+            System.out.println("Pilih peran:");
+            System.out.println("1. Creator (Artis)");
+            System.out.println("2. Client (Pembeli)");
+            System.out.println("0. Keluar");
+            System.out.print("Masukkan pilihan: ");
+            int role = sc.nextInt();
+            sc.nextLine(); // konsumsi newline
 
+            if (role == 1) {
+                System.out.print("Masukkan nama Anda (Creator): ");
+                String namaArtis = sc.nextLine();
+                Artis creator = new Artis(namaArtis);
 
-// public class WadahSeni {
+                int menuCreator;
+                do {
+                    System.out.println("\n--- Menu Creator ---");
+                    System.out.println("1. Tambah karya seni");
+                    System.out.println("2. Lihat semua karya Anda");
+                    System.out.println("9. Ganti Peran");
+                    System.out.print("Pilih menu: ");
+                    menuCreator = sc.nextInt();
+                    sc.nextLine();
 
-//     public static void main(String[] args) {
-//        Scanner sc = new Scanner(System.in);
-//         ArrayList<KaryaSeni> daftarKarya = new ArrayList<>();
+                    switch (menuCreator) {
+                        case 1:
+                            System.out.println("Jenis karya seni:");
+                            System.out.println("1. Lukisan");
+                            System.out.println("2. Patung");
+                            System.out.print("Pilih: ");
+                            int jenis = sc.nextInt();
+                            sc.nextLine();
 
-//         // Artis dan Karya Seni awal
-//         Artis a1 = new Artis("Dewi Lestari");
-//         Artis a2 = new Artis("Budi Santosa");
+                            System.out.print("Judul: ");
+                            String judul = sc.nextLine();
 
-//         daftarKarya.add(new Lukisan("Senja Merah", a1, 1500000, "Akrilik"));
-//         daftarKarya.add(new Patung("Rasa Sunyi", a2, 2000000, "Kayu Jati"));
-//         daftarKarya.add(new Lukisan("Pagi di Desa", a2, 1000000, "Cat Minyak"));
+                            double harga = -1;
+                            while (harga <= 0) {
+                                System.out.print("Harga (lebih dari 0): ");
+                                if (sc.hasNextDouble()) {
+                                    harga = sc.nextDouble();
+                                    sc.nextLine();
+                                    if (harga <= 0) System.out.println("⚠️  Harga tidak valid.");
+                                } else {
+                                    System.out.println("⚠️  Input harus angka.");
+                                    sc.next();
+                                }
+                            }
 
-//         System.out.print("Masukkan nama Anda: ");
-//         String namaPembeli = sc.nextLine();
-//         Pembeli pembeli = new Pembeli(namaPembeli);
+                            if (jenis == 1) {
+                                System.out.print("Teknik lukisan: ");
+                                String teknik = sc.nextLine();
+                                daftarKarya.add(new Lukisan(judul, creator, harga, teknik));
+                                System.out.println("✔️ Lukisan ditambahkan.");
+                            } else if (jenis == 2) {
+                                System.out.print("Bahan patung: ");
+                                String bahan = sc.nextLine();
+                                daftarKarya.add(new Patung(judul, creator, harga, bahan));
+                                System.out.println("✔️ Patung ditambahkan.");
+                            } else {
+                                System.out.println("❌ Jenis tidak valid.");
+                            }
+                            break;
 
-//         int pilihan;
-//         do {
-//             System.out.println("\n--- Menu Galeri Seni Digital ---");
-//             System.out.println("1. Lihat semua karya");
-//             System.out.println("2. Beli karya seni");
-//             System.out.println("3. Lihat koleksi pembeli");
-//             System.out.println("4. Generate Receipt");
-//             System.out.println("5. Cari karya berdasarkan judul");
-//             System.out.println("6. Tambah karya seni baru");
-//             System.out.println("0. Keluar");
-//             System.out.print("Pilih menu: ");
-//             pilihan = sc.nextInt();
-//             sc.nextLine(); // konsumsi newline
+                        case 2:
+                            System.out.println("\nKarya milik Anda:");
+                            for (KaryaSeni k : daftarKarya) {
+                                if (k.getArtis().getNama().equalsIgnoreCase(creator.getNama())) {
+                                    System.out.println("- " + k);
+                                }
+                            }
+                            break;
 
-//             switch (pilihan) {
-//                 case 1:
-//                     System.out.println("\nDaftar Karya Seni:");
-//                     for (int i = 0; i < daftarKarya.size(); i++) {
-//                         System.out.println((i + 1) + ". " + daftarKarya.get(i));
-//                     }
-//                     break;
-//                 case 2:
-//                     System.out.print("Masukkan nomor karya yang ingin dibeli: ");
-//                     int no = sc.nextInt();
-//                     if (no > 0 && no <= daftarKarya.size()) {
-//                         pembeli.beliKarya(daftarKarya.get(no - 1));
-//                         System.out.println("Karya berhasil ditambahkan ke koleksi.");
-//                     } else {
-//                         System.out.println("Nomor tidak valid.");
-//                     }
-//                     break;
-//                 case 3:
-//                     pembeli.tampilkanKoleksi();
-//                     break;
-//                 case 4:
-//                     System.out.print("Masukkan persen diskon (0-100): ");
-//                     double diskon = sc.nextDouble();
-//                     TransaksiSeni.generateReceipt(pembeli, diskon);
-//                     break;
-//                 case 5:
-//                     System.out.print("Masukkan kata kunci judul: ");
-//                     String keyword = sc.nextLine().toLowerCase();
-//                     System.out.println("Hasil pencarian:");
-//                     for (KaryaSeni k : daftarKarya) {
-//                         if (k.getJudul().toLowerCase().contains(keyword)) {
-//                             System.out.println("- " + k);
-//                         }
-//                     }
-//                     break;
-//                 case 6:
-//                     System.out.println("Jenis karya seni yang ingin ditambahkan:");
-//                     System.out.println("1. Lukisan");
-//                     System.out.println("2. Patung");
-//                     System.out.print("Pilih: ");
-//                     int jenis = sc.nextInt();
-//                     sc.nextLine(); // konsumsi newline
+                        case 9:
+                            System.out.println("🔁 Kembali ke pemilihan peran...");
+                            break;
 
-//                     System.out.print("Judul: ");
-//                     String judul = sc.nextLine();
+                        default:
+                            System.out.println("❌ Menu tidak valid.");
+                    }
+                } while (menuCreator != 9);
 
-//                     System.out.print("Nama artis: ");
-//                     String namaArtis = sc.nextLine();
-//                     Artis artisBaru = new Artis(namaArtis);
+            } else if (role == 2) {
+                System.out.print("Masukkan nama Anda (Client): ");
+                String namaPembeli = sc.nextLine();
+                Pembeli pembeli = new Pembeli(namaPembeli);
 
-//                     // Validasi harga
-//                     double harga = -1;
-//                     while (harga <= 0) {
-//                         System.out.print("Harga (harus lebih dari 0): ");
-//                         if (sc.hasNextDouble()) {
-//                             harga = sc.nextDouble();
-//                             sc.nextLine(); // konsumsi newline
-//                             if (harga <= 0) {
-//                                 System.out.println("⚠️  Harga harus lebih dari 0. Coba lagi.");
-//                             }
-//                         } else {
-//                             System.out.println("⚠️  Input tidak valid. Masukkan angka.");
-//                             sc.next(); // skip input salah
-//                         }
-//                     }
+                int pilihan;
+                do {
+                    System.out.println("\n--- Menu Client ---");
+                    System.out.println("1. Lihat semua karya");
+                    System.out.println("2. Beli karya seni");
+                    System.out.println("3. Lihat koleksi Anda");
+                    System.out.println("4. Generate Receipt");
+                    System.out.println("5. Cari karya berdasarkan judul");
+                    System.out.println("9. Ganti Peran");
+                    System.out.print("Pilih menu: ");
+                    pilihan = sc.nextInt();
+                    sc.nextLine();
 
-//                     if (jenis == 1) {
-//                         System.out.print("Teknik lukisan: ");
-//                         String teknik = sc.nextLine();
-//                         Lukisan lukisanBaru = new Lukisan(judul, artisBaru, harga, teknik);
-//                         daftarKarya.add(lukisanBaru);
-//                         System.out.println("Lukisan berhasil ditambahkan.");
-//                     } else if (jenis == 2) {
-//                         System.out.print("Bahan patung: ");
-//                         String bahan = sc.nextLine();
-//                         Patung patungBaru = new Patung(judul, artisBaru, harga, bahan);
-//                         daftarKarya.add(patungBaru);
-//                         System.out.println("Patung berhasil ditambahkan.");
-//                     } else {
-//                         System.out.println("Pilihan tidak valid!");
-//                     }
-//                     break;
+                    switch (pilihan) {
+                        case 1:
+                            System.out.println("\nDaftar Karya Seni:");
+                            for (int i = 0; i < daftarKarya.size(); i++) {
+                                System.out.println((i + 1) + ". " + daftarKarya.get(i));
+                            }
+                            break;
+                        case 2:
+                            System.out.print("Masukkan nomor karya yang ingin dibeli: ");
+                            int no = sc.nextInt();
+                            if (no > 0 && no <= daftarKarya.size()) {
+                                pembeli.beliKarya(daftarKarya.get(no - 1));
+                                System.out.println("✔️ Karya berhasil dibeli.");
+                            } else {
+                                System.out.println("❌ Nomor tidak valid.");
+                            }
+                            break;
+                        case 3:
+                            pembeli.tampilkanKoleksi();
+                            break;
+                        case 4:
+                            System.out.print("Masukkan persen diskon (0-100): ");
+                            double diskon = sc.nextDouble();
+                            TransaksiSeni.generateReceipt(pembeli, diskon);
+                            break;
+                        case 5:
+                            System.out.print("Masukkan kata kunci judul: ");
+                            String keyword = sc.nextLine().toLowerCase();
+                            System.out.println("Hasil pencarian:");
+                            for (KaryaSeni k : daftarKarya) {
+                                if (k.getJudul().toLowerCase().contains(keyword)) {
+                                    System.out.println("- " + k);
+                                }
+                            }
+                            break;
+                        case 9:
+                            System.out.println("🔁 Kembali ke pemilihan peran...");
+                            break;
+                        default:
+                            System.out.println("❌ Menu tidak valid.");
+                    }
+                } while (pilihan != 9);
 
-//                 case 0:
-//                     System.out.println("Terima kasih telah menggunakan Galeri Seni Digital.");
-//                     break;
-//                 default:
-//                     System.out.println("Pilihan tidak valid!");
-//             }
-
-//         } while (pilihan != 0);
-//         sc.close(); 
-//     }
-    
-// }
+            } else if (role == 0) {
+                System.out.println("👋 Terima kasih telah menggunakan Galeri Seni Digital.");
+                running = false;
+            } else {
+                System.out.println("❌ Peran tidak valid.");
+            }
+        }
+        sc.close();
+    }
+}
