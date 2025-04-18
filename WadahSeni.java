@@ -165,7 +165,7 @@ public class WadahSeni {
                     System.out.println("\n----------- Menu Creator ------------");
                     System.out.println("-------------------------------------");
                     System.out.println("HALO " +namaArtis);
-                    System.out.println("Selamat datang di menu Creator - WANI");
+                    System.out.println("Selamat datang di menu Creator - WANI (Wadah Seni)");
                     System.out.println("Pilih opsi fiturmu");
                     System.out.println("-------------------------------------");
                     System.out.println("1. Tambah karya seni");
@@ -244,7 +244,7 @@ public class WadahSeni {
                     System.out.println("\n------------ Menu Client ------------");
                     System.out.println("-------------------------------------");
                     System.out.println("HALO " +namaPembeli);
-                    System.out.println("Selamat datang di menu Client - WANI");
+                    System.out.println("Selamat datang di menu Client - WANI (Wadah Seni)");
                     System.out.println("Pilih opsi fiturmu");
                     System.out.println("--------------------------------------");
                     System.out.println("1. Lihat semua karya");
